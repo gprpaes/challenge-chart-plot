@@ -1,0 +1,14 @@
+.appBar{
+    display: flex;
+    width: 100vw;
+    height: 10vh;
+    font-size: 3rem;
+    background-color: var(--appBarGrey);
+    align-items: center;
+    padding-left: 4rem;
+}
+
+.bottom{
+    position: fixed;
+    bottom: 0;
+}
