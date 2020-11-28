@@ -1,0 +1,6 @@
+.box{
+    display:flex;
+    width: 500rem;
+    height: 500rem;
+    background-color: blue;
+}
