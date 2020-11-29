@@ -5,8 +5,8 @@ button{
     align-self: center;
     border-radius: 4px;
     padding: 1rem;
-    position: fixed;
-    cursor: pointer;   
+    cursor: pointer;  
+    min-height: 2vh; 
 }
 
 

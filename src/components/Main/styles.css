@@ -1,6 +1,14 @@
 .box{
     display:flex;
-    width: 500rem;
-    height: 500rem;
-    background-color: blue;
+    width: 100vw;
+    height: 80vh;
+    flex-direction: column-reverse;
+}
+
+.resizable-stuff{
+    background-color: darkblue;
+    width: 100%;
+    height: 50%;
+    color: white;
+    font-size: 32px;
 }

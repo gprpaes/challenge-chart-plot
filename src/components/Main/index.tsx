@@ -1,13 +1,41 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./styles.css";
 export default function Main(props: any) {
-  const refContainer = useRef<HTMLDivElement>(null)
-  const [height, setHeight] = useState<Number>()
+  const refContainer = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(Number);
+  const [currentHeight, setCurrentHeight] = useState(Number);
+  const [shouldUpdateHeight, setShouldUpdateHeight] = useState(false);
+  const [styleObject, setStyleObject] = useState({});
+  const [mouseX, setMouseX] = useState(0);
+  const [mouseY, setMouseY] = useState(0);
 
-  useEffect(()=>{
-    setHeight(refContainer.current!.clientHeight)
-    console.log(refContainer.current!.clientHeight)
-  }, [])
+  useEffect(() => {
+    setHeight(refContainer.current!.clientHeight);
+    console.log(refContainer.current!);
+  }, []);
 
-return <div ref={refContainer}className="box" style={{ height: props.color }}>Current Height:{height}px</div>;
+  return (
+    <div className="box">
+      <div
+        ref={refContainer}
+        style={styleObject}
+        onMouseDown={() => {
+          setShouldUpdateHeight(true);
+        }}
+        onMouseUp={() => {
+          setShouldUpdateHeight(false);
+        }}
+        onMouseMove={(e) => {
+          if (shouldUpdateHeight) {
+            setMouseX(e.clientX);
+            setMouseY(e.clientY);
+          }
+        }}
+        className="resizable-stuff"
+      >
+        Update Height?: {shouldUpdateHeight.toString()}
+        Coordinates: {mouseX} {mouseY}
+      </div>
+    </div>
+  );
 }

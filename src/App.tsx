@@ -1,15 +1,17 @@
 import React from "react";
 import "./styles/global.css";
 import AppBar from "./components/AppBar";
-import Button from "./components/Button"
-import Main from "./components/Main"
+import Button from "./components/Button";
+import Main from "./components/Main";
 
 function App() {
   return (
-    <div>
-      <AppBar variant="top">Guilherme's Challenge</AppBar>
-      <Main color='20rem'/>
-      <AppBar variant="bottom"><Button/></AppBar>
+    <div className="container">
+      <AppBar>Guilherme's Challenge</AppBar>
+      <Main/>
+      <AppBar>
+        <Button />
+      </AppBar>
     </div>
   );
 }
