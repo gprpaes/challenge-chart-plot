@@ -33,6 +33,7 @@ export default function Main(props: any) {
         }}
         className="resizable-stuff"
       >
+        <div className="stuff"><p style={{alignSelf: 'center', justifySelf: 'center'}}>PUTA QUE PARIU</p></div>
         Update Height?: {shouldUpdateHeight.toString()}
         Coordinates: {mouseX} {mouseY}
       </div>
