@@ -30,13 +30,11 @@ export default function Main(props: any) {
     <div className="box" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} >
       <div ref={refContainer} style={styleObject} className="resizable-stuff" >
         <div className="stuff" onMouseDown={handleMouseDown}>
-          <button className="test"  style={{ alignSelf: "center", justifySelf: "center"}} >
-            PUTA QUE PARIU
-          </button>
+          <div className="resize-button">
+              <span className ="resize-button-inside"/>
+              
+            </div>
         </div>
-       <p>Initial Height: {height}</p>
-       <p>Update Height?: {shouldUpdateHeight.toString()}</p>
-        <p>Coordinates: {mouseY}</p>
       </div>
     </div>
   );
