@@ -9,14 +9,15 @@ export default function Main(props: any) {
   const [styleObject, setStyleObject] = useState({});
   const [mouseY, setMouseY] = useState(0);
 
-  const handleMouseDown = () => setShouldUpdateHeight(true);
+  const handleMouseDown = (event: any) => {setShouldUpdateHeight(true); setCurrentHeight(event.pageY)};
   const handleMouseUp = () => setShouldUpdateHeight(false);
   // TODO find the correct type for event
   const handleMouseMove = (event: any) => {
+    setMouseY(event.movementY)
     if(shouldUpdateHeight){
-      setMouseY(event.clientY)
-      setHeight(mouseY) //FIX THIS
-      setStyleObject({height: height})
+      console.log('offsset', mouseY)
+      setCurrentHeight(prevHeight => prevHeight - mouseY)
+      setStyleObject({height: currentHeight })
     } 
   }
 
@@ -26,12 +27,12 @@ export default function Main(props: any) {
   }, []);
 
   return (
-    <div className="box">
-      <div ref={refContainer} style={styleObject} className="resizable-stuff">
-        <div className="stuff">
-          <p onMouseDownCapture={handleMouseDown} onMouseUp={handleMouseUp} onMouseMove={handleMouseMove} style={{ alignSelf: "center", justifySelf: "center", cursor: "ns-resize" }}>
+    <div className="box" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} >
+      <div ref={refContainer} style={styleObject} className="resizable-stuff" >
+        <div className="stuff" onMouseDown={handleMouseDown}>
+          <button className="test"  style={{ alignSelf: "center", justifySelf: "center"}} >
             PUTA QUE PARIU
-          </p>
+          </button>
         </div>
        <p>Initial Height: {height}</p>
        <p>Update Height?: {shouldUpdateHeight.toString()}</p>
@@ -40,3 +41,4 @@ export default function Main(props: any) {
     </div>
   );
 }
+

@@ -9,22 +9,23 @@
     background-color: darkblue;
     width: 100%;
     min-height: 60%;
+    max-height: 80vh;
     color: white;
     font-size: 32px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border-top: 2px solid black;
-    transition: height 0.1s linear;
+    transition: height  ease;
 }
 
 .stuff{
-    display: inline-flex;
+    display: flex;
     align-content: center;
     justify-content: center;
     position: relative;
-    top: -8px;
     width: 100%;
-    color: red;
-    height: 10px;
+    height: 3px;
+    background-color: black;
+    z-index: 9999;
+    cursor: ns-resize;
 }
