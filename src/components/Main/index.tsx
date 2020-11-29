@@ -9,17 +9,16 @@ export default function Main(props: any) {
   const [mouseY, setMouseY] = useState(0);
 
   const handleMouseDown = (event: any) => setShouldUpdateHeight(true);
-  const handleMouseUp = () => setShouldUpdateHeight(false); 
+  const handleMouseUp = () => setShouldUpdateHeight(false);
   // TODO find the correct type for event
   const handleMouseMove = (event: any) => {
-    
-    if(shouldUpdateHeight){
-      setMouseY(event.movementY)
-      console.log('offset', mouseY)
-      setHeight(prevHeight => prevHeight - mouseY)
-      setStyleObject({height: height })
-    } 
-  }
+    if (shouldUpdateHeight) {
+      setMouseY(event.movementY);
+      console.log("offset", mouseY);
+      setHeight((prevHeight) => prevHeight - mouseY);
+      setStyleObject({ height: height });
+    }
+  };
 
   useLayoutEffect(() => {
     setHeight(refContainer.current!.clientHeight);
@@ -27,16 +26,18 @@ export default function Main(props: any) {
   }, []);
 
   return (
-    <div className="box" onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} >
-      <div ref={refContainer} style={styleObject} className="resizable-stuff" >
+    <div
+      className="box"
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
+      <div ref={refContainer} style={styleObject} className="resizable-stuff">
         <div className="stuff" onMouseDown={handleMouseDown}>
           <div className="resize-button">
-              <span className ="resize-button-inside"/>
-              
-            </div>
+            <span className="resize-button-inside" />
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
