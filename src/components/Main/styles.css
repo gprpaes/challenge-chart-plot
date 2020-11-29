@@ -8,13 +8,14 @@
 .resizable-stuff{
     background-color: darkblue;
     width: 100%;
-    height: 50%;
+    min-height: 60%;
     color: white;
     font-size: 32px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    border-top: 3px solid black;
+    border-top: 2px solid black;
+    transition: height 0.1s linear;
 }
 
 .stuff{
