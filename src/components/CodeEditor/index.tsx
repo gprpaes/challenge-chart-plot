@@ -5,13 +5,18 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-twilight";
 import "./styles.css"
  
-export default function CodeEditor() { 
+interface ICodeEditor{
+    mouseUp: any
+    mouseMove: any
+}
+
+export default function CodeEditor(props: ICodeEditor) { 
 return (
   <AceEditor
     width='100%'
     mode="javascript"
     theme="twilight"
-    editorProps={{ $blockScrolling: false }}
+    editorProps={{ $blockScrolling: false, onMouseUp: props.mouseUp, onMouseMove: props.mouseMove }}
   />
 );
 

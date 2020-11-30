@@ -36,7 +36,8 @@ export default function Main() {
       style={{ cursor: shouldUpdateHeight ? "ns-resize" : "default" }}
     >
       <AppBar>Guilherme's Challenge</AppBar>
-      <CodeEditor />
+      <CodeEditor mouseMove={handleMouseMove}
+      mouseUp={handleMouseUp}/>
       <ResizableContainer domRef={refContainer} mouseDown={handleMouseDown} mouseUp={handleMouseUp} styleObject={styleObject} />
       <AppBar>
         <Button />
