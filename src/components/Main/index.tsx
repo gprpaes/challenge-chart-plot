@@ -3,6 +3,7 @@ import AppBar from "../AppBar";
 import Button from "../Button";
 import CodeEditor from "../CodeEditor";
 import ResizableContainer from "../ResizableContainer";
+import Chart from "../Chart"
 
 export default function Main() {
   const refContainer = useRef<HTMLDivElement>(null);
@@ -10,6 +11,7 @@ export default function Main() {
   const [shouldUpdateHeight, setShouldUpdateHeight] = useState(false);
   const [styleObject, setStyleObject] = useState({});
   const [mouseY, setMouseY] = useState(0);
+  const [dataInput, setDataInput] = useState();
 
   const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
@@ -21,6 +23,11 @@ export default function Main() {
       setStyleObject({ height: height });
     }
   };
+
+  const handleChange = (value: String) => {
+    console.log(value)
+}   
+
 
   useLayoutEffect(() => {
     setHeight(refContainer.current!.clientHeight);
@@ -34,13 +41,13 @@ export default function Main() {
       style={{ cursor: shouldUpdateHeight ? "ns-resize" : "default" }}
     >
       <AppBar>Guilherme's Challenge</AppBar>
-      <CodeEditor/>
+      <CodeEditor change={handleChange}/>
       <ResizableContainer
         domRef={refContainer}
         mouseDown={handleMouseDown}
         mouseUp={handleMouseUp}
         styleObject={styleObject}
-      />
+      ><Chart/></ResizableContainer>
       <AppBar>
         <Button />
       </AppBar>

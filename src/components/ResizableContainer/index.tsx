@@ -1,4 +1,4 @@
-import React, {Ref} from "react";
+import React, {ReactNode, Ref} from "react";
 import './styles.css'
 
 interface IResizableContainer {
@@ -6,6 +6,7 @@ interface IResizableContainer {
   mouseDown: any; // and this
   styleObject: Object;
   domRef: Ref<HTMLDivElement>;
+  children? : ReactNode
 }
 
 export default function ResizableContainer(props: IResizableContainer) {
@@ -25,6 +26,8 @@ export default function ResizableContainer(props: IResizableContainer) {
             <span className="resize-button-inside" />
           </div>
         </div>
+        aaa
+        {props.children}
       </div>
     </div>
   );
