@@ -1,20 +1,24 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
-import "./styles.css";
+import React, { useRef, useState, useLayoutEffect} from "react";
+import AppBar from "../AppBar";
+import Button from "../Button";
+import CodeEditor from "../CodeEditor";
+import ResizableContainer from "../ResizableContainer";
 
-export default function Main(props: any) {
+
+export default function Main() {
   const refContainer = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(Number);
   const [shouldUpdateHeight, setShouldUpdateHeight] = useState(false);
   const [styleObject, setStyleObject] = useState({});
   const [mouseY, setMouseY] = useState(0);
 
-  const handleMouseDown = (event: any) => setShouldUpdateHeight(true);
+  const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
-  // TODO find the correct type for event
+  
+  // Well, this sucks. Shouldn't be "any" no need using Typescript if I'm doing this....
   const handleMouseMove = (event: any) => {
     if (shouldUpdateHeight) {
       setMouseY(event.movementY);
-      console.log("offset", mouseY);
       setHeight((prevHeight) => prevHeight - mouseY);
       setStyleObject({ height: height });
     }
@@ -22,22 +26,21 @@ export default function Main(props: any) {
 
   useLayoutEffect(() => {
     setHeight(refContainer.current!.clientHeight);
-    console.log(refContainer.current!);
   }, []);
 
   return (
     <div
-      className="box"
+      className="container"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
+      style={{ cursor: shouldUpdateHeight ? "ns-resize" : "default" }}
     >
-      <div ref={refContainer} style={styleObject} className="resizable-stuff">
-        <div className="stuff" onMouseDown={handleMouseDown}>
-          <div className="resize-button">
-            <span className="resize-button-inside" />
-          </div>
-        </div>
-      </div>
+      <AppBar>Guilherme's Challenge</AppBar>
+      <CodeEditor />
+      <ResizableContainer domRef={refContainer} mouseDown={handleMouseDown} mouseUp={handleMouseUp} styleObject={styleObject} />
+      <AppBar>
+        <Button />
+      </AppBar>
     </div>
   );
 }

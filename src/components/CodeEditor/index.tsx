@@ -5,8 +5,7 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-twilight";
 import "./styles.css"
  
-export default function CodeEditor(newValue: any) {
-
+export default function CodeEditor() { 
 return (
   <AceEditor
     width='100%'
