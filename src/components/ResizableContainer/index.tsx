@@ -1,10 +1,9 @@
-import React, {Ref } from "react";
+import React, {Ref} from "react";
 import './styles.css'
 
 interface IResizableContainer {
-  mouseUp: any;
-  mouseDown: any;
-  mouseMove?: any;
+  mouseUp: any; // I'm ashamed of doing this
+  mouseDown: any; // and this
   styleObject: Object;
   domRef: Ref<HTMLDivElement>;
 }

@@ -1,9 +1,8 @@
-import React, { useRef, useState, useLayoutEffect} from "react";
+import React, { useRef, useState, useLayoutEffect, MouseEvent } from "react";
 import AppBar from "../AppBar";
 import Button from "../Button";
 import CodeEditor from "../CodeEditor";
 import ResizableContainer from "../ResizableContainer";
-
 
 export default function Main() {
   const refContainer = useRef<HTMLDivElement>(null);
@@ -14,9 +13,8 @@ export default function Main() {
 
   const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
-  
-  // Well, this sucks. Shouldn't be "any" no need using Typescript if I'm doing this....
-  const handleMouseMove = (event: any) => {
+
+  const handleMouseMove = (event: MouseEvent) => {
     if (shouldUpdateHeight) {
       setMouseY(event.movementY);
       setHeight((prevHeight) => prevHeight - mouseY);
@@ -36,9 +34,13 @@ export default function Main() {
       style={{ cursor: shouldUpdateHeight ? "ns-resize" : "default" }}
     >
       <AppBar>Guilherme's Challenge</AppBar>
-      <CodeEditor mouseMove={handleMouseMove}
-      mouseUp={handleMouseUp}/>
-      <ResizableContainer domRef={refContainer} mouseDown={handleMouseDown} mouseUp={handleMouseUp} styleObject={styleObject} />
+      <CodeEditor/>
+      <ResizableContainer
+        domRef={refContainer}
+        mouseDown={handleMouseDown}
+        mouseUp={handleMouseUp}
+        styleObject={styleObject}
+      />
       <AppBar>
         <Button />
       </AppBar>
