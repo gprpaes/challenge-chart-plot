@@ -18,7 +18,7 @@ export default function ResizableContainer(props: IResizableContainer) {
         className="resizable-stuff"
       >
         <div
-          className="stuff"
+          className="edge-container"
           onMouseDown={props.mouseDown}
           onMouseUp={props.mouseUp}
         >
