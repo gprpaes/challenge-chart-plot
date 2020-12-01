@@ -26,7 +26,6 @@ export default function ResizableContainer(props: IResizableContainer) {
             <span className="resize-button-inside" />
           </div>
         </div>
-        aaa
         {props.children}
       </div>
     </div>

@@ -18,7 +18,6 @@ return (
     theme="gruvbox"
     fontSize={14}
     onChange={props.change}
-    
   />
 );
 
