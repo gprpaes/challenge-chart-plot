@@ -11,12 +11,12 @@ export default function Main() {
   const [shouldUpdateHeight, setShouldUpdateHeight] = useState(false);
   const [styleObject, setStyleObject] = useState({});
   const [mouseY, setMouseY] = useState(0);
-  const [dataInput, setDataInput] = useState();
+  const [dataInput, setDataInput] = useState<String>();
 
   const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
 
-  const handleMouseMove = (event: MouseEvent) => {
+  const handleMouseMove = (event: React.MouseEvent) => {
     if (shouldUpdateHeight) {
       setMouseY(event.movementY);
       setHeight((prevHeight) => prevHeight - mouseY);
@@ -24,8 +24,12 @@ export default function Main() {
     }
   };
 
-  const handleChange = (value: String) => {
-    console.log(value);
+  const commitChart = () =>{
+    alert('foi')
+  }
+
+  const handleDataInput = (value: String) => {
+    setDataInput(value);
   };
 
   useLayoutEffect(() => {
@@ -40,7 +44,7 @@ export default function Main() {
       style={{ cursor: shouldUpdateHeight ? "ns-resize" : "default" }}
     >
       <AppBar>Guilherme's Challenge</AppBar>
-      <CodeEditor change={handleChange} />
+      <CodeEditor change={handleDataInput} />
       <ResizableContainer
         domRef={refContainer}
         mouseDown={handleMouseDown}
@@ -50,7 +54,7 @@ export default function Main() {
         <Chart mouseMove={handleMouseMove} mouseUp={handleMouseUp} />
       </ResizableContainer>
       <AppBar>
-        <Button />
+        <Button onClick={commitChart}/>
       </AppBar>
     </div>
   );

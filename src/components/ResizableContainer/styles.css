@@ -1,19 +1,19 @@
 .box{
     display:flex;
     width: 100vw;
-    height: 90rem;
+    height: 80rem;
     flex-direction: column-reverse;
 }
 
 .resizable-stuff{
     width: 100%;
     min-height: 100%;
-    max-height: 80vh;
+    max-height: 79vh;
     height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    transition: height  ease;
+    transition: height linear;
 
 }
 
@@ -26,7 +26,7 @@
     height: 1px;
     background-color: black;
     cursor: ns-resize;
-    z-index: 999;
+    z-index: 9999;
 }
 
 .resize-button{
