@@ -12,6 +12,7 @@ export default function Main() {
   const [styleObject, setStyleObject] = useState({});
   const [mouseY, setMouseY] = useState(0);
   const [dataInput, setDataInput] = useState<String>();
+  const [parsedData, setParsedData] = useState<Object[]>();
 
   const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
@@ -25,10 +26,11 @@ export default function Main() {
   };
 
   const commitChart = () =>{
-    alert('foi')
+    setParsedData(dataInput?.split('\n'))
+    console.log(parsedData)
   }
 
-  const handleDataInput = (value: String) => {
+  const handleDataInput = (value: String,  test: any) => {
     setDataInput(value);
   };
 

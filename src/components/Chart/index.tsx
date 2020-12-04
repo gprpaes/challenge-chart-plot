@@ -8,6 +8,12 @@ import {
 import "./styles.css";
 const data = [{}];
 
+interface IChart{
+  mouseUp: any;
+  mouseMove: any;
+  data: String
+}
+
 export default function Chart(props: any) {
   return (
     <VictoryChart
