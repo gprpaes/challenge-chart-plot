@@ -3,11 +3,31 @@
   color: white;
   
 }
-    
+
 .ace_folding-enabled {
   background-color: #60656e;    
 }
 
 .ace_editor {
-  font-family: "Source Code Pro";
+  font-family: "Source Code Pro" !important;
+}
+
+.ace_numeric{
+    color: #bc83ea !important;
+}
+
+.ace_string{
+    color: #0fc3d3 !important;
+}
+
+.ace_cursor{
+    color: #ffffff !important;
+}
+
+.ace_variable{
+    color: #ffffff !important;
+}
+
+.ace_print-margin{
+    display: none;
 }

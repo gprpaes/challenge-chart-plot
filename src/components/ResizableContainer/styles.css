@@ -8,7 +8,7 @@
 .resizable-stuff{
     width: 100%;
     min-height: 50vh;
-    max-height: 78.8vh;
+    max-height: 79vh;
     height: 50vh;
     display: flex;
     flex-direction: column;
