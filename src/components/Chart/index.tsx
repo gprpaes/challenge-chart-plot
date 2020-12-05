@@ -11,7 +11,7 @@ const data = [{}];
 interface IChart{
   mouseUp: any;
   mouseMove: any;
-  data: String
+  data: JSON[]
 }
 
 export default function Chart(props: any) {

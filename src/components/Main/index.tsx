@@ -63,7 +63,7 @@ export default function Main() {
         mouseUp={handleMouseUp}
         styleObject={styleObject}
       >
-        <Chart mouseMove={handleMouseMove} mouseUp={handleMouseUp} />
+        <Chart mouseMove={handleMouseMove} mouseUp={handleMouseUp} data={parsedData}/>
       </ResizableContainer>
       <AppBar>
         <Button onClick={commitChart} />
