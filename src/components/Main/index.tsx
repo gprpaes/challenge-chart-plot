@@ -2,7 +2,6 @@ import React, {
   useRef,
   useState,
   useLayoutEffect,
-  MouseEvent,
   useEffect,
 } from "react";
 import AppBar from "../AppBar";
@@ -11,7 +10,6 @@ import CodeEditor from "../CodeEditor";
 import ResizableContainer from "../ResizableContainer";
 import Chart from "../Chart";
 import JSON5 from "json5";
-
 
 export default function Main() {
   const refContainer = useRef<HTMLDivElement>(null);
@@ -30,30 +28,24 @@ export default function Main() {
     if (shouldUpdateHeight) {
       setMouseY(event.movementY);
       setHeight((prevHeight) => prevHeight - mouseY);
-      setStyleObject({ height: height });
+      setStyleObject({ height });
     }
-  }
+  };
 
-  const commitChart = () => dataInput ? setSplittedData(dataInput!.split("\n")) : null
-  
+  const commitChart = () =>
+    dataInput ? setSplittedData(dataInput!.split("\n")) : null;
 
   useEffect(() => {
     if (splittedData) {
-      for (let line of splittedData) {
-        let json5Parsed = JSON5.parse(line)
-        setParsedData(oldData => [...oldData, json5Parsed])
-      }
-      
-    } 
+      for (let line of splittedData)
+        setParsedData((oldData) => [...oldData, JSON5.parse(line)]);
+    }
   }, [splittedData]);
 
-  const handleDataInput = (value: String, test: any) => {
-    setDataInput(value);
-  };
+  const handleDataInput = (value: String) => setDataInput(value);
 
   useLayoutEffect(() => {
     setHeight(refContainer.current!.clientHeight);
-    console.log("height", refContainer.current!.clientHeight);
   }, []);
 
   return (
