@@ -1,0 +1,7 @@
+.chart{
+    justify-content: center ;
+    justify-self: center;
+    align-self: center;
+    flex-grow: 0;
+    width: 20rem;
+}

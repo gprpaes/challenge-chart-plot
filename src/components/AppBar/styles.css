@@ -5,6 +5,7 @@
     background-color: var(--appBarGrey);
     align-items: center;
     padding-left: 4rem;
-    min-height: 7rem;
+    min-height: 10.8vh;
+    z-index: 9999;
     
 }
