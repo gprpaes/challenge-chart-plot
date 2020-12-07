@@ -40,9 +40,6 @@ export const options: Highcharts.Options = {
       verticalAlign: "top",
     },
     series: [
-      {
-        type: "line",
-        data: [0, 1, 5],
-      },
+      {type: 'line', data: []},
     ],
   };

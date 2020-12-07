@@ -12,11 +12,9 @@ import Chart from "../Chart";
 import {options} from "../Chart/options"
 import JSON5 from "json5";
 
+
 export default function Main() {
-  options.series!.push(    {
-    type: "line",
-    data: [1, 2, 3],
-  },)
+ 
   const refContainer = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(Number);
   const [shouldUpdateHeight, setShouldUpdateHeight] = useState(false);
@@ -25,7 +23,7 @@ export default function Main() {
   const [dataInput, setDataInput] = useState<String>();
   const [splittedData, setSplittedData] = useState<string[]>();
   const [parsedData, setParsedData] = useState<JSON[]>([]);
-  const [chartOptions, setChartOptions] = useState(options)
+  const [chartOptions, setChartOptions] = useState<any>(options)
 
   const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
@@ -38,13 +36,23 @@ export default function Main() {
     }
   };
 
-  const commitChart = () =>
-    dataInput ? setSplittedData(dataInput!.split("\n")) : null;
+  const commitChart = () => dataInput ? setSplittedData(dataInput!.split("\n")) : null;
 
   useEffect(() => {
     if (splittedData) {
       for (let line of splittedData)
         setParsedData((oldData) => [...oldData, JSON5.parse(line)]);
+      
+       options.series!.push({type:'line', data: [2, 3, 1]},)
+       setChartOptions(options)
+      /*setChartOptions(
+        {
+          series: [
+            { data: [2, 3, 1]}
+          ]
+        }
+      )*/
+      console.log(chartOptions)
     }
   }, [splittedData]);
 
