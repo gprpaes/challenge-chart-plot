@@ -1,4 +1,3 @@
-import { forEachChild } from "typescript";
 
 export interface Ievent extends JSON {
   type: string;
@@ -9,20 +8,20 @@ export interface Ievent extends JSON {
 }
 
 
-// ITERATION HELL
+/// This is rather inefficient
 export const shazam = (parsedData: JSON[], options: any) => {
   let lastStartIndex = 0,
     lastStopIndex = -1,
     groups: any,
-    min,
-    max,
+    min: Date,
+    max: Date,
     select: any,
     seriesGroup: string,
     seen: string[] = [],
     entries: Object[] = [],
     seriesGroupSelect: string;
 
-  parsedData!.forEach((event) => {
+  parsedData!.forEach(async (event) => {
     switch ((event as Ievent).type) {
       case "start":
         groups = (event as Ievent).group;
@@ -35,9 +34,10 @@ export const shazam = (parsedData: JSON[], options: any) => {
         options.xAxis.max = max;
         break;
       case "data":
+        if((event as Ievent).timestamp >= min && (event as Ievent).timestamp <= max){
         let current: string = "";
         let obj: any = {};
-        for (let group of groups) {
+        for await (let group of groups) { 
           current = `${current} ${(event as Ievent)[group]}`;
         }
         if(!seen.find(saw => saw == current)){
@@ -45,21 +45,35 @@ export const shazam = (parsedData: JSON[], options: any) => {
         obj[current] = {};
         entries.push(obj)
         }
-       
-        for (let selected of select) {
-         entries.forEach(entry =>{
-           for(let key in entry){
+        for await (let selected of select) { 
+         entries.forEach(entry =>{ 
+           for(let key in entry){ 
            (entry as Ievent)[key][selected] = [];
-           //console.log('current', (entry as Ievent)[`${current}`], `"${current}"`)
            }
          })
        }
-        
-       console.log(entries)
-      
+       
+       for await (let selected of select){
+         for(let entry of entries){
+          for(let key in entry){ 
+            if(current == key)
+            (entry as Ievent)[key][selected].push((event as Ievent)[selected]);
+            }
+         }
+       }
+
+      console.log('event', event)
+      console.log("entries", entries)
+      }
       break;
       case "stop":
         entries = [];
+        seen = [];
+        break;
+      default:
+        throw new Error('Erro')
     }
   });
+
+  
 };
