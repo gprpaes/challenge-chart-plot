@@ -25,6 +25,7 @@ export default function Main() {
   const [splittedData, setSplittedData] = useState<string[]>();
   const [parsedData, setParsedData] = useState<JSON[]>([]);
   const [chartOptions, setChartOptions] = useState<any>(options)
+  const [shouldUpdateChart, setShouldUpdateChart] = useState<any>(false)
 
   const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
@@ -44,15 +45,22 @@ export default function Main() {
     if (splittedData) {
       for (let line of splittedData)
         setParsedData((oldData) => [...oldData, JSON5.parse(line)]);
-       options.series!.push({type:'line', data: [2, 3, 1]},)
-       setChartOptions(options)
-   
     }
   }, [splittedData]);
 
   useEffect(()=>{
-    if(parsedData.length > 0) shazam(parsedData, options)
+    if(parsedData.length > 0) 
+    shazam(parsedData, options)
+    setShouldUpdateChart(true)
+   
   },[parsedData])
+
+  useLayoutEffect(() =>{
+    setChartOptions(options)
+    return function cleanup(){
+      setShouldUpdateChart(false)
+    }
+  },[shouldUpdateChart])
 
   const handleDataInput = (value: String) => setDataInput(value);
 
