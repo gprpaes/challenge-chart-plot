@@ -50,9 +50,7 @@ export default function Main() {
 
   useEffect(()=>{
     if(parsedData.length > 0) 
-    shazam(parsedData, options)
-    setShouldUpdateChart(true)
-   
+    shazam(parsedData, options).then(ret => setShouldUpdateChart(true))
   },[parsedData])
 
   useLayoutEffect(() =>{

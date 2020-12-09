@@ -7,7 +7,7 @@ export interface Ievent extends JSON {
 }
 
 /// This is rather inefficient
-export const shazam = (parsedData: JSON[], options: any) => {
+export const shazam = async (parsedData: JSON[], options: any) => {
   let lastStartIndex = 0,
     lastStopIndex = -1,
     groups: any,
@@ -20,7 +20,7 @@ export const shazam = (parsedData: JSON[], options: any) => {
     seriesObject: any,
     seriesArray: any = [];
 
-    parsedData!.forEach(async (event) => {
+    await Promise.all(parsedData!.map(async (event) => {
     switch ((event as Ievent).type) {
       case "start":
         groups = (event as Ievent).group;
@@ -78,7 +78,6 @@ export const shazam = (parsedData: JSON[], options: any) => {
             }
           }
 
-          //console.log("entries", entries);
         }
         break;
       case "stop":
@@ -88,6 +87,6 @@ export const shazam = (parsedData: JSON[], options: any) => {
       default:
         throw new Error("Erro");
     }
-  });
+  }));
   return options
 };
