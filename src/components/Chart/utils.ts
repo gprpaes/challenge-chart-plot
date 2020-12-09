@@ -1,6 +1,7 @@
+
 export interface Ievent extends JSON {
   type: string;
-  timestamp: Date;
+  timestamp: number;
   select?: string[];
   group?: string[];
   [propName: string]: any;
@@ -8,17 +9,14 @@ export interface Ievent extends JSON {
 
 /// This is rather inefficient
 export const shazam = async (parsedData: JSON[], options: any) => {
-  let lastStartIndex = 0,
-    lastStopIndex = -1,
+  let 
     groups: any,
-    min: Date,
-    max: Date,
+    min: number,
+    max: number,
     select: any,
-    seriesGroup: string,
     seen: string[] = [],
     entries: Object[] = [],
-    seriesObject: any,
-    seriesArray: any = [];
+    seriesObject: any;
 
     await Promise.all(parsedData!.map(async (event) => {
     switch ((event as Ievent).type) {
@@ -29,8 +27,7 @@ export const shazam = async (parsedData: JSON[], options: any) => {
       case "span":
         min = (event as Ievent).begin;
         max = (event as Ievent).end;
-        //options.xAxis.min = min;
-        //options.xAxis.max = max;
+        options.xAxis.min = 0;
         break;
       case "data":
         if (

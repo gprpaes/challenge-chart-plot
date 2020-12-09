@@ -6,7 +6,7 @@ export const options: Highcharts.Options = {
     height: 320,
   },
   xAxis: {
-    categories: [],
+    categories: ['00:00', '00:01'],
     tickmarkPlacement: "on",
    
   },
