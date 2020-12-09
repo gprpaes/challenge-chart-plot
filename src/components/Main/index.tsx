@@ -11,6 +11,7 @@ import ResizableContainer from "../ResizableContainer";
 import Chart from "../Chart";
 import {options} from "../Chart/options"
 import JSON5 from "json5";
+import {Ievent, shazam} from "../Chart/utils"
 
 
 export default function Main() {
@@ -38,23 +39,20 @@ export default function Main() {
 
   const commitChart = () => dataInput ? setSplittedData(dataInput!.split("\n")) : null;
 
+
   useEffect(() => {
     if (splittedData) {
       for (let line of splittedData)
         setParsedData((oldData) => [...oldData, JSON5.parse(line)]);
-      
        options.series!.push({type:'line', data: [2, 3, 1]},)
        setChartOptions(options)
-      /*setChartOptions(
-        {
-          series: [
-            { data: [2, 3, 1]}
-          ]
-        }
-      )*/
-      console.log(chartOptions)
+   
     }
   }, [splittedData]);
+
+  useEffect(()=>{
+    if(parsedData.length > 0) shazam(parsedData, options)
+  },[parsedData])
 
   const handleDataInput = (value: String) => setDataInput(value);
 
