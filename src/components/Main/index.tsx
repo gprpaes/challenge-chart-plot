@@ -1,21 +1,15 @@
-import React, {
-  useRef,
-  useState,
-  useLayoutEffect,
-  useEffect,
-} from "react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import AppBar from "../AppBar";
 import Button from "../Button";
 import CodeEditor from "../CodeEditor";
 import ResizableContainer from "../ResizableContainer";
 import Chart from "../Chart";
-import {options} from "../Chart/options"
+import { options } from "../Chart/options";
 import JSON5 from "json5";
-import {Ievent, shazam} from "../Chart/utils"
+import { shazam } from "../Chart/utils";
 
 
 export default function Main() {
- 
   const refContainer = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(Number);
   const [shouldUpdateHeight, setShouldUpdateHeight] = useState(false);
@@ -24,8 +18,8 @@ export default function Main() {
   const [dataInput, setDataInput] = useState<String>();
   const [splittedData, setSplittedData] = useState<string[]>();
   const [parsedData, setParsedData] = useState<JSON[]>([]);
-  const [chartOptions, setChartOptions] = useState<any>(options)
-  const [shouldUpdateChart, setShouldUpdateChart] = useState<any>(false)
+  const [chartOptions, setChartOptions] = useState<any>(options);
+  const [shouldUpdateChart, setShouldUpdateChart] = useState<any>(false);
 
   const handleMouseDown = () => setShouldUpdateHeight(true);
   const handleMouseUp = () => setShouldUpdateHeight(false);
@@ -38,27 +32,33 @@ export default function Main() {
     }
   };
 
-  const commitChart = () => dataInput ? setSplittedData(dataInput!.split("\n")) : null;
-
+  const commitChart = () =>
+    dataInput ? setSplittedData(dataInput!.split("\n")) : null;
 
   useEffect(() => {
     if (splittedData) {
       for (let line of splittedData)
-        setParsedData((oldData) => [...oldData, JSON5.parse(line)]);
+        try {
+          setParsedData((oldData) => [...oldData, JSON5.parse(line)]);
+        } catch (err) {
+          setParsedData([])
+          throw (`Erro ao processar o evento ${err}`);
+          
+        }
     }
   }, [splittedData]);
 
-  useEffect(()=>{
-    if(parsedData.length > 0) 
-    shazam(parsedData, options).then(ret => setShouldUpdateChart(true))
-  },[parsedData])
+  useEffect(() => {
+    if (parsedData.length > 0)
+      shazam(parsedData, options).then((ret) => setShouldUpdateChart(true));
+  }, [parsedData]);
 
-  useLayoutEffect(() =>{
-    setChartOptions(options)
-    return function cleanup(){
-      setShouldUpdateChart(false)
-    }
-  },[shouldUpdateChart])
+  useLayoutEffect(() => {
+    setChartOptions(options);
+    return function cleanup() {
+      setShouldUpdateChart(false);
+    };
+  }, [shouldUpdateChart]);
 
   const handleDataInput = (value: String) => setDataInput(value);
 
@@ -81,7 +81,12 @@ export default function Main() {
         mouseUp={handleMouseUp}
         styleObject={styleObject}
       >
-        <Chart mouseMove={handleMouseMove} mouseUp={handleMouseUp} data={parsedData} options={chartOptions}/>
+        <Chart
+          mouseMove={handleMouseMove}
+          mouseUp={handleMouseUp}
+          data={parsedData}
+          options={chartOptions}
+        />
       </ResizableContainer>
       <AppBar>
         <Button onClick={commitChart} />

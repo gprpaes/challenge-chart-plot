@@ -39,7 +39,7 @@ export const shazam = async (parsedData: JSON[], options: any) => {
           for await (let group of groups) {
             current = `${current} ${(event as Ievent)[group]}`;
           }
-          if (!seen.find((saw) => saw == current)) {
+          if (!seen.find((saw) => saw === current)) {
             seen.push(current);
             obj[current] = {};
             entries.push(obj);
@@ -55,7 +55,7 @@ export const shazam = async (parsedData: JSON[], options: any) => {
           for await (let selected of select) {
             for (let entry of entries) {
               for (let key in entry) {
-                if (current == key)
+                if (current === key)
                   (entry as Ievent)[key][selected].push(
                     (event as Ievent)[selected]
                   );
@@ -69,7 +69,7 @@ export const shazam = async (parsedData: JSON[], options: any) => {
               seriesObject = {name: `${key} ${selected}`, type:"line", data: (entry as Ievent)[key][selected]}  
               break
               }
-              if(!options.series.find((seen: any) => seen.name == seriesObject.name))
+              if(!options.series.find((seen: any) => seen.name === seriesObject.name))
               options.series.push(seriesObject)
               
             }
@@ -85,5 +85,6 @@ export const shazam = async (parsedData: JSON[], options: any) => {
         throw new Error("Erro");
     }
   }));
+  
   return options
 };
